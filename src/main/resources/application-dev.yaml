@@ -1,0 +1,5 @@
+web:
+  secret: ${docker-secret-web-secret}
+  
+docker-secret:
+  bind-path: /run/secrets
