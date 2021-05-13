@@ -1,20 +1,22 @@
 version: "3.8"
 
 services:
-  secret-service:
-    image: muditshukla3/spring-boot-docker-secret:0.0.1-RELEASE
+  web:
+    image: muditshukla3/spring-boot-docker-secret:0.0.3-RELEASE
     ports:
       - "8080:8080"
       - "8081:8081" # This is for spring boot actuator
     environment:
-      - SPRING_ACTIVE_PROFILES: "dev"
+      - "SPRING_PROFILES_ACTIVE=dev"
+    secrets:
+      - web-secret
     deploy:
       mode: replicated
       replicas: 1
       resources:
         limits:
           cpus: '0.5'
-          memory: 256M
+          memory: 512M
       update_config:
         parallelism: 1
         delay: 30s
@@ -25,9 +27,7 @@ services:
         condition: on-failure
         delay: 15s
         max_attempts: 3
-        window: 30s
-    secrets:
-      - web-secret     
+        window: 30s     
     healthcheck:
       test: if [ ! `wget -qO- http://localhost:8081/manage/health 2>/dev/null | jq . | jq --exit-status '.status == "UP"'` ]; then exit 1; fi
       interval: 30s

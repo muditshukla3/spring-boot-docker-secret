@@ -4,6 +4,13 @@ web:
 server:
   port: 8080
 
+docker-secret:
+  bind-path: /run/secrets
+
+spring:
+  profiles:
+    active: local
+
 management:
   server:
     port: 8081

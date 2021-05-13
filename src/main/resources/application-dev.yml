@@ -1,0 +1,2 @@
+web:
+  secret: ${docker-secret-web-secret}
