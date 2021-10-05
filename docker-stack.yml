@@ -2,7 +2,7 @@ version: "3.8"
 
 services:
   web:
-    image: muditshukla3/spring-boot-docker-secret:0.0.3-RELEASE
+    image: muditshukla3/boot-docker-secret:0.0.1-RELEASE
     ports:
       - "8080:8080"
       - "8081:8081" # This is for spring boot actuator
@@ -29,7 +29,7 @@ services:
         max_attempts: 3
         window: 30s     
     healthcheck:
-      test: if [ ! `wget -qO- http://localhost:8081/manage/health 2>/dev/null | jq . | jq --exit-status '.status == "UP"'` ]; then exit 1; fi
+      test: if [ ! `wget -qO- http://localhost:8081/actuator/health 2>/dev/null | jq . | jq --exit-status '.status == "UP"'` ]; then exit 1; fi
       interval: 30s
       timeout: 45s
       retries: 3

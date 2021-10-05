@@ -7,16 +7,10 @@ server:
 docker-secret:
   bind-path: /run/secrets
 
-spring:
-  profiles:
-    active: local
-
 management:
   server:
     port: 8081
   endpoints:
     web:
-      base-path: "/manage"
-    jmx:
       exposure:
-        include: "health"  
+        include: "info,health"
